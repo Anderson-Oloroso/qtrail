@@ -13,7 +13,7 @@ export class App{
 
     routes(){
         this.app.get('/', (req, res)=>{
-            res.status(200).json({ message: 'API orientada a objetos funcionando ...'});
+            res.status(200).json({ message: 'API QTrail funcionando ...'});
         });
 
         this.app.get('/health', (req, res)=>{
