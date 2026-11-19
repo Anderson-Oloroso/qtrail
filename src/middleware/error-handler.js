@@ -1,6 +1,6 @@
 import { AppError } from "../utils/app-error.js";
 
-export class errorHandler{
+export class ErrorHandler{
     handle(error, req, res, next){
         console.error(error);
 
