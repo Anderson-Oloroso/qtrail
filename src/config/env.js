@@ -1,4 +1,3 @@
-import { raw } from "express";
 import { AppError } from "../utils/app-error.js";
 
 export class EnvConfig {
@@ -34,7 +33,7 @@ export class EnvConfig {
         }
 
         const parsed = Number(rawPort);
-        if(!Number.isInteger(parsed) || parsed <= 0 || parsed > 65536){
+        if(!Number.isInteger(parsed) || parsed <= 0 || parsed > 65535){
             throw new AppError(`Configuración inválida en PORT: "${rawPort}". Debe ser un puerto entre 1 y 65535.`, 500)
         }
 

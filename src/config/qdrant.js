@@ -1,13 +1,9 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
-import { AppError } from "../utils/app-error.js";
-
-if (!process.env.QDRANT_URL || !process.env.QDRANT_API_KEY){
-    AppError('FALTA QDRANT_URL o QDRANR_API_KEY', 404);
-}
-
-export const collectionName = process.env.QDRANT_COLLECTION || 'qtrail';
+import { envConfig } from "./env.js";
 
 export const qdrantClient = new QdrantClient({
-    url: process.env.QDRANT_URL,
-    apiKey: process.env.QDRANT_API_KEY,
+    url: envConfig.qdrantUrl,
+    apiKey: envConfig.qdrantApiKey,
 });
+
+export const QDRANT_COLLECTION = envConfig.qdrantCollection;

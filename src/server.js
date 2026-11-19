@@ -1,8 +1,9 @@
 import { App } from "./app.js";
+import { envConfig } from "./config/env.js";
 
 class Server {
     constructor(){
-        this.port = process.env.PORT || 3000;
+        this.port = envConfig.port;
         this.applicacion = new App();
     }
 

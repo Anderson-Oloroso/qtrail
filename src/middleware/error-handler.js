@@ -1,3 +1,4 @@
+import { envConfig } from "../config/env.js";
 import { AppError } from "../utils/app-error.js";
 
 export class ErrorHandler{
@@ -14,7 +15,7 @@ export class ErrorHandler{
             },
         }
 
-        if(process.env.NODE_ENV !== 'production'){
+        if(!envConfig.isProduction()){
             body.error.stack = error.stack;
         }
 
