@@ -4,7 +4,7 @@ export class ErrorHandler{
     handle(error, req, res, next){
         console.error(error);
 
-        const statusCode = error instanceof AppError ? error.statusCode : 5000;
+        const statusCode = error instanceof AppError ? error.statusCode : 500;
 
         const body = {
             error: {
