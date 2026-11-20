@@ -2,6 +2,7 @@ export class NotesController {
     constructor( notesService ) {
         this.notesService = notesService; 
         this.createNote = this.createNote.bind(this);
+        this.getNotes = this.getNotes.bind(this);
     }
 
     async createNote(req, res, next){
@@ -11,6 +12,15 @@ export class NotesController {
             return res.status(201).json(note);
         }catch(err){
             next(err);   
+        }
+    }
+
+    async getNotes(req, res, next){
+        try{
+            const notes = await this.notesService.getNotes();
+            return res.status(200).json(notes);
+        }catch(err){
+            next(err);
         }
     }
 }
