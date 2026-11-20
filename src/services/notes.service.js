@@ -24,4 +24,13 @@ export class NotesService{
             ... payload
         }
     }
+
+    async getAllNotes(){
+        const points = await this.notesRepository.findAll();
+
+        return points.map(point =>({
+            id: point.id,
+            ...point.payload
+        }));
+    }
 }

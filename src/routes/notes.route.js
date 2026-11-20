@@ -1,5 +1,5 @@
 import { EmbeddingService } from "../services/embedding.service.js";
-import { NotesRepository } from "../repositories/notes.repositories.js";
+import { NotesRepository } from "../repositories/notes.repository.js";
 import { NotesService } from "../services/notes.service.js";
 import { NotesController } from "../controllers/notes.controller.js";
 import { Router } from "express";
