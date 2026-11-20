@@ -12,5 +12,6 @@ const notesController = new NotesController(notesService);
 
 const notesRoter = Router();
 notesRoter.post('/', notesController.createNote);
+notesRoter.get('/', notesController.getNotes);
 
 export default notesRoter;

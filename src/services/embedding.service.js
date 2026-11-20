@@ -15,7 +15,7 @@ export class EmbeddingService {
 
             return response.embeddings[0].values;
         }catch(err){
-            throw new AppError(`Ocurrió un error en la generación del embedding: ${err.message}`);
+            throw new AppError(`[SERVICE:GEMINI] Error al generar embedding con Gemini: ${err.message}`, 500, 'GEMINI_EMBEDDING_ERROR');
         }
     }
 }

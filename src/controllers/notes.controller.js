@@ -17,7 +17,7 @@ export class NotesController {
 
     async getNotes(req, res, next){
         try{
-            const notes = await this.notesService.getNotes();
+            const notes = await this.notesService.getAllNotes();
             return res.status(200).json(notes);
         }catch(err){
             next(err);

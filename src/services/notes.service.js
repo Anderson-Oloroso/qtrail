@@ -7,7 +7,7 @@ export class NotesService{
     }
 
     async createNote({ text, keywords = []}){
-        if(!text) throw new AppError('El texto es inválido o está vacío', 400);
+        if(!text) throw new AppError('[SERVICE:NOTES] El contenido de la nota es obligatorio y no puede estar vacío', 400, 'INVALID_NOTE_TEXT');
 
         const vector = await this.embeddingService.generate(text);
         const id = crypto.randomUUID();

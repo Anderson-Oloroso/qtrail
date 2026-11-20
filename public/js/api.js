@@ -13,8 +13,9 @@ async function requestJson(url, options = {}) {
     let errorMessage = `Error HTTP ${response.status}`;
     try {
       const errorBody = await response.json();
-      if (errorBody && errorBody.message) {
-        errorMessage = errorBody.message;
+      const message = errorBody?.error?.message || errorBody?.message;
+      if (message) {
+        errorMessage = message;
       }
     } catch {
       // Si la respuesta de error no es JSON válido, conservamos el mensaje por defecto

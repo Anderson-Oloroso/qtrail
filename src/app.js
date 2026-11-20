@@ -7,13 +7,15 @@ export class App{
         this.app = express();
         this.middlewares();
         this.routes();
+        this.errorHandling();
+    }
+
+    middlewares(){
+        this.app.use(express.json());
+        this.app.use(express.static('public'));
     }
 
     routes(){
-        this.app.get('/', (req, res)=>{
-            res.status(200).json({ message: 'API QTrail funcionando ...'});
-        });
-
         this.app.get('/health', (req, res)=>{
             res.status(200).json({ status: 'ok' });
         });
@@ -21,10 +23,7 @@ export class App{
         this.app.use('/api/notes', notesRoter);
     }
 
-    middlewares(){
-        this.app.use(express.json());
-        this.app.use(express.static('public'));
-
+    errorHandling(){
         const errorHandler = new ErrorHandler();
         this.app.use(errorHandler.handle.bind(errorHandler));
     }
