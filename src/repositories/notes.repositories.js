@@ -6,6 +6,19 @@ export class NotesRepository {
         this.collection = collection;
     }
 
+    async findAll(limit = 100){
+        try{
+            const response = await this.qdrant.scroll(this.collection, {
+                limit,
+                with_payload: true,
+                with_vector: true
+            });
+            return response.points;
+        }catch(err){
+            throw new AppError(`Ha ocurrido un error: ${err.message}`, 500);
+        }
+    }
+
     async createPoint( id, vector, payload){
         try{
             await this.qdrant.upsert(this.collection, {
