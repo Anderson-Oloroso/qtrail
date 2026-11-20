@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css">
+  <title>QTrail</title>
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem("qhuella-theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = savedTheme || (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand">
+        <h1 class="brand__title">QTrail</h1>
+        <p class="brand__subtitle">Notas y búsqueda semántica</p>
+      </div>
+
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar entre modo día y noche" aria-pressed="false">
+        <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle__label">Modo noche</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <section class="card" aria-labelledby="create-note-title">
+      <h2 id="create-note-title" class="card__title">Nueva nota</h2>
+      <form id="note-form" class="form">
+        <div class="form__group">
+          <label for="note-text">Contenido de la nota</label>
+          <textarea id="note-text" name="text" rows="4" placeholder="Escribe aquí lo que quieres recordar..." required></textarea>
+        </div>
+
+        <div class="form__group">
+          <label for="note-keywords">Palabras clave (separadas por coma)</label>
+          <input id="note-keywords" name="keywords" type="text" placeholder="ej. arquitectura, qdrant, vectores"/>
+        </div>
+
+        <button type="submit" class="btn btn--primary">Guardar nota</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="search-note-title">
+      <h2 id="search-note-title" class="card__title">Búsqueda semántica</h2>
+      <form id="search-form" class="search-form">
+        <label for="search-query" class="sr-only">Consulta de búsqueda</label>
+        <input id="search-query" name="query" type="search" placeholder="Busca por idea o significado..." required/>
+        <button type="submit" class="btn btn--secondary">Buscar</button>
+        <button type="button" id="reset-search-btn" class="btn btn--ghost">Ver todas</button>
+      </form>
+    </section>
+
+    <section class="card notes-section" aria-labelledby="notes-list-title">
+      <div class="notes-section__header">
+        <h2 id="notes-list-title" class="card__title">Notas guardadas</h2>
+        <span id="status-message" class="status-message" role="status" aria-live="polite"></span>
+      </div>
+      <div id="notes-list" class="notes-list"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
