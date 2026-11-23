@@ -3,6 +3,7 @@ export class NotesController {
         this.notesService = notesService; 
         this.createNote = this.createNote.bind(this);
         this.getNotes = this.getNotes.bind(this);
+        this.searchByKeyword = this.searchByKeyword.bind(this);
     }
 
     async createNote(req, res, next){
@@ -18,6 +19,29 @@ export class NotesController {
     async getNotes(req, res, next){
         try{
             const notes = await this.notesService.getAllNotes();
+            return res.status(200).json(notes);
+        }catch(err){
+            next(err);
+        }
+    }
+
+    async searchByKeyword(req, res, next){
+        try{
+            const rawKeywords = req.body?.keywords ?? req.body?.query ?? "";
+            let parsedKeywords = [];
+
+            if (Array.isArray(rawKeywords)) {
+                parsedKeywords = rawKeywords
+                    .map(k => String(k).trim().toLowerCase())
+                    .filter(Boolean);
+            } else if (typeof rawKeywords === 'string') {
+                parsedKeywords = rawKeywords
+                    .split(/[\s,]+/)
+                    .map(k => k.trim().toLowerCase())
+                    .filter(Boolean);
+            }
+
+            const notes = await this.notesService.searchByKeyword(parsedKeywords);
             return res.status(200).json(notes);
         }catch(err){
             next(err);
