@@ -16,6 +16,13 @@ class Colection {
             }else{
                 console.log(`Ya existe una colección con nombre ${name}.`)
             }
+
+            await qdrantClient.createPayloadIndex( name, {
+                field_name: "keywords",
+                field_schema: "keyword",
+                wait: true
+            });
+            console.log(`Índice de payload para 'keywords' asegurado en ${name}.`);
         }catch(err){
             throw new AppError(`Ha ocurrido un error: ${err.message}`, 500)
         }
