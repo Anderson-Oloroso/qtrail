@@ -66,10 +66,10 @@ export class NotesRepository {
 
     async deletePoint( id ){
         try{
-            await this.qdrant.delete(this.collection, {
+            return await this.qdrant.delete(this.collection, {
                 wait: true,
                 points: [ id ]
-            })
+            });
         }catch(err){
             throw new AppError(`[REPOSITORY:QDRANT] Error al eliminar punto (${id}): ${err.message}`, 500, 'QDRANT_DELETE_ERROR');
         }
