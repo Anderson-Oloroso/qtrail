@@ -43,4 +43,11 @@ export class NotesService{
             ...point.payload
         }));
     }
+
+    async deletePoint(id){
+        if(!id) return null;
+
+        const isDeleted = await this.notesRepository.deletePoint(id);
+        return isDeleted;
+    }
 }
