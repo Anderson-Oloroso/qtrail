@@ -66,12 +66,35 @@ export class NotesRepository {
 
     async deletePoint( id ){
         try{
-            await this.qdrant.delete(this.collection, {
+            return await this.qdrant.delete(this.collection, {
                 wait: true,
                 points: [ id ]
-            })
+            });
         }catch(err){
             throw new AppError(`[REPOSITORY:QDRANT] Error al eliminar punto (${id}): ${err.message}`, 500, 'QDRANT_DELETE_ERROR');
         }
     }
+
+    async searchByKeyword(keywords = []) {
+        try{
+            const response = await this.qdrant.scroll(this.collection, {
+            filter: {
+               must: [
+                   {
+                   key: "keywords",
+                   match: { any: keywords },
+                   },
+               ],
+               },
+               limit: 20,
+               with_payload: true,
+               with_vector: false,
+           });
+
+           return response.points;
+        }catch(err){
+            throw new AppError(`[REPOSITORY:QDRANT] Error al buscar por palabras clave (${keywords}): ${err.message}`, 500, 'QDRANT_SEARCH_ERROR');
+        }
+    }
+
 }

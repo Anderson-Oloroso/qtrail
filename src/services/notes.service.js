@@ -33,4 +33,21 @@ export class NotesService{
             ...point.payload
         }));
     }
+
+    async searchByKeyword(keywords = []){
+        if(!Array.isArray(keywords) ||  keywords.length === 0) return [];
+        const searched = await this.notesRepository.searchByKeyword(keywords);
+
+        return searched.map(point =>({
+            id: point.id,
+            ...point.payload
+        }));
+    }
+
+    async deletePoint(id){
+        if(!id) return null;
+
+        const isDeleted = await this.notesRepository.deletePoint(id);
+        return isDeleted;
+    }
 }
