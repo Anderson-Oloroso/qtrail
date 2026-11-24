@@ -13,5 +13,7 @@ const notesController = new NotesController(notesService);
 const notesRoter = Router();
 notesRoter.post('/', notesController.createNote);
 notesRoter.get('/', notesController.getNotes);
+notesRoter.post('/search', notesController.searchByKeyword);
+notesRoter.delete('/:id', notesController.deletePoint)
 
 export default notesRoter;
