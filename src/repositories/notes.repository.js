@@ -37,33 +37,6 @@ export class NotesRepository {
         }
     }
 
-    async searchById( id ){
-        try{
-            const result = await this.qdrant.retrieve(this.collection, {
-                ids: [ id ],
-                with_payload: true,
-                with_vector: false
-            });
-            console.log('Punto encontrado: ', result);
-            return result;
-        }catch(err){
-            throw new AppError(`[REPOSITORY:QDRANT] Error al buscar punto por ID (${id}): ${err.message}`, 500, 'QDRANT_RETRIEVE_ERROR');
-        }
-    }
-
-    async updatePayload( id, payload ){
-        try{
-            await this.qdrant.setPayload( this.collection, {
-                wait: true,
-                points: [ id ],
-                payload
-            });
-            console.log(`Payload del punto con id ${id}, actualizado correctamente en la colección ${this.collection}`);
-        }catch(err){
-            throw new AppError(`[REPOSITORY:QDRANT] Error al actualizar payload del punto (${id}): ${err.message}`, 500, 'QDRANT_SET_PAYLOAD_ERROR');
-        }
-    }
-
     async deletePoint( id ){
         try{
             return await this.qdrant.delete(this.collection, {
