@@ -4,6 +4,7 @@ export class NotesController {
         this.createNote = this.createNote.bind(this);
         this.getNotes = this.getNotes.bind(this);
         this.searchByKeyword = this.searchByKeyword.bind(this);
+        this.deletePoint = this.deletePoint.bind(this);
     }
 
     async createNote(req, res, next){
@@ -43,6 +44,17 @@ export class NotesController {
 
             const notes = await this.notesService.searchByKeyword(parsedKeywords);
             return res.status(200).json(notes);
+        }catch(err){
+            next(err);
+        }
+    }
+
+    async deletePoint(req, res, next){
+        try{
+            const { id } = req.params;
+            const deleted = await this.notesService.deletePoint(id);
+
+            return res.status(200).json({ success: true, id, result: deleted });
         }catch(err){
             next(err);
         }
